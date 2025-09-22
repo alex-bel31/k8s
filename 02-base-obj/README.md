@@ -2,7 +2,7 @@
 
 ### Задание 1
 
-1. Манифест pod hello-world - [hello-world-pod.yml]()
+1. Манифест pod hello-world - [hello-world-pod.yml](https://github.com/alex-bel31/k8s/blob/main/02-base-obj/hello-world-pod.yml)
 
     <center>
     <img src="img/t1-hw-pod.JPG">
@@ -20,9 +20,9 @@
 
 ### Задание 2
 
-1. Манифест pod netology-web - [netology-web-pod.yml]()
+1. Манифест pod netology-web - [netology-web-pod.yml](https://github.com/alex-bel31/k8s/blob/main/02-base-obj/netology-web-pod.yml)
 
-2. Манифест service netology-svc - [netology-svc.yml]()
+2. Манифест service netology-svc - [netology-svc.yml](https://github.com/alex-bel31/k8s/blob/main/02-base-obj/netology-svc.yml)
 
     <center>
     <img src="img/t2-svc.JPG">
