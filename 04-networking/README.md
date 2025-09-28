@@ -32,8 +32,8 @@
 
 
 1. Deployment frontend и backend:
-    - [frontend](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/deployment-frontend.yml.yml) (образ nginx).
-    - [backend](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/deployment-backend.yml.yml) (образ wbitt/network-multitool).
+    - [frontend](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/deployment-frontend.yml) (образ nginx).
+    - [backend](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/deployment-backend.yml) (образ wbitt/network-multitool).
 
 2. Манифесты сервисов для каждого приложения:
     - [Service fronend](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/service-frontend.yml)
