@@ -37,7 +37,7 @@
 
 2. Манифесты сервисов для каждого приложения:
     - [Service fronend](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/service-frontend.yml)
-    - [Service backend](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/service-backendyml)
+    - [Service backend](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/service-backend.yml)
 
 3. Манифест Ingress - [ingress.yml](https://github.com/alex-bel31/k8s/blob/main/04-networking/ingress/ingress.yml)
     - Открывает frontend по пути /.
