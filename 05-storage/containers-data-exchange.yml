@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-exchange
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            while true; do
+              echo "$(date) - Hello from busybox" >> /shared/data.txt;
+              sleep 5;
+            done
+        volumeMounts:
+        - mountPath: "/shared"
+          name: shared-data
+
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        ports:
+        - containerPort: 8080
+          name: http-port
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            while true; do
+              echo "---- Reading shared file ----";
+              tail -n 5 /shared/data.txt 2>/dev/null || echo "File not ready";
+              sleep 5;
+            done
+        resources:
+          requests:
+            cpu: "1m"
+            memory: "20Mi"
+          limits:
+            cpu: "10m"
+            memory: "20Mi"
+        volumeMounts:
+        - mountPath: "/shared"
+          name: shared-data
+      volumes:
+      - name: shared-data
+        emptyDir: {}

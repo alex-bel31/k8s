@@ -1,0 +1,91 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: local-pv
+spec:
+  capacity:
+    storage: 1Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  hostPath:
+    path: /mnt/data
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-pvc
+spec:
+  volumeName: local-pv
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: ""
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-exchange
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: busybox
+        image: busybox
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            while true; do
+              echo "$(date) - Hello from busybox" >> /data/local-pv.txt;
+              sleep 5;
+            done
+        volumeMounts:
+        -  name: data-volume
+           mountPath: /data
+
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+        - name: HTTP_PORT
+          value: "8080"
+        ports:
+        - containerPort: 8080
+          name: http-port
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            while true; do
+              echo "---- Reading shared file ----";
+              tail -n 5 /data/local-pv.txt 2>/dev/null || echo "File not ready";
+              sleep 5;
+            done
+        resources:
+          requests:
+            cpu: "1m"
+            memory: "20Mi"
+          limits:
+            cpu: "10m"
+            memory: "20Mi"
+        volumeMounts:
+        -  name: data-volume
+           mountPath: /data
+      volumes:
+        - name: data-volume
+          persistentVolumeClaim:
+            claimName: local-pvc
