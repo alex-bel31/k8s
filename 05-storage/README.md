@@ -3,7 +3,7 @@
 ### Задание 1. Volume: обмен данными между контейнерами в поде
 
 * Манифест - [containers-data-exchange.yml
-](https://github.com/alex-bel31/k8s/blob/main/05-storage/services/containers-data-exchange.yml)
+](https://github.com/alex-bel31/k8s/blob/main/05-storage/containers-data-exchange.yml)
 
     <center>
     <img src="img/t1-describe-pod_1.JPG">
@@ -20,7 +20,7 @@
 ### Задание 2. PV, PVC
 
 1. Манифест - [pv-pvc.yml
-](https://github.com/alex-bel31/k8s/blob/main/05-storage/services/pv-pvc.yml)
+](https://github.com/alex-bel31/k8s/blob/main/05-storage/pv-pvc.yml)
 
     <center>
     <img src="img/t2-tail.JPG">
@@ -43,7 +43,7 @@
 
 
 1. Манифест - [sc.yml
-](https://github.com/alex-bel31/k8s/blob/main/05-storage/services/sc.yml)
+](https://github.com/alex-bel31/k8s/blob/main/05-storage/sc.yml)
 
     <center>
     <img src="img/t3-tail.JPG">
