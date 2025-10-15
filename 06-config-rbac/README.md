@@ -27,6 +27,7 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 kubectl create secret tls myapp-tls --cert=tls.crt --key=tls.key -n webapp
 ```
 3. Проверка доступности:
+
     <center>
     <img src="img/t2-curl.JPG">
     </center>
