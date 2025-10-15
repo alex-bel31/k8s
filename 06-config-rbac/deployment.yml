@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-multitool
+  namespace: webapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-multitool
+  template:
+    metadata:
+      labels:
+        app: nginx-multitool
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.27
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - name: html
+            mountPath: /usr/share/nginx/html
+
+      - name: multitool
+        image: wbitt/network-multitool
+        env:
+          - name: HTTP_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: web-config
+                key: HTTP_PORT
+        ports:
+          - containerPort: 8080
+        resources:
+          requests:
+            cpu: "1m"
+            memory: "20Mi"
+          limits:
+            cpu: "10m"
+            memory: "20Mi"      
+
+      volumes:
+        - name: html
+          configMap:
+            name: web-config
+            items:
+              - key: index.html
+                path: index.html
