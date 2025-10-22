@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "webapp.fullname" . }}-frontend
+  labels:
+    app: {{ include "webapp.fullname" . }}-frontend
+spec:
+  replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels:
+      app: {{ include "webapp.fullname" . }}-frontend
+  template:
+    metadata:
+      labels:
+        app: {{ include "webapp.fullname" . }}-frontend
+    spec:
+      initContainers:
+        - name: init-nginx
+          image: busybox:1.28
+          command: ['sh', '-c', 'until nslookup {{ include "webapp.fullname" . }}-frontend; do echo Waiting for nginx-service to be ready; sleep 2; done']
+      containers:
+        - name: nginx
+          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.frontend.port }}

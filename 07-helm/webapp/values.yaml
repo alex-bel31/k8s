@@ -1,0 +1,16 @@
+frontend:
+  replicas: 2
+  image:
+    repository: nginx
+    tag: "1.14.2"
+  port: 80
+
+backend:
+  replicas: 2
+  image:
+    repository: wbitt/network-multitool
+    tag: "latest"
+  port: 8080
+
+ingress:
+  host: my-app.com

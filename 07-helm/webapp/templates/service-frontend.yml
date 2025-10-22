@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "webapp.fullname" . }}-frontend
+spec:
+  selector:
+    app: {{ include "webapp.fullname" . }}-frontend
+  ports:
+  - name: http
+    port: {{ .Values.frontend.port }}
+    targetPort: {{ .Values.frontend.port }}
