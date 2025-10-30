@@ -1,3 +1,0 @@
-# Установка Kubernetes
-
-TODO

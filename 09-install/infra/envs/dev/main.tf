@@ -73,7 +73,8 @@ module "k8s_master" {
   platform               = "standard-v3"
   instance_core_fraction = 20
   security_group_ids     = [module.sg_nodes.security_group_id]
-  instance_memory        = 2
+  instance_memory        = 4
+  instance_cores = 2
 
   metadata = {
     user-data = templatefile("${path.root}/../../templates/cloud-init.tpl", {
@@ -97,6 +98,7 @@ module "k8s_worker" {
   instance_core_fraction = 20
   security_group_ids     = [module.sg_nodes.security_group_id]
   instance_memory        = 2
+  instance_cores = 2
 
   metadata = {
     user-data = templatefile("${path.root}/../../templates/cloud-init.tpl", {
@@ -137,6 +139,3 @@ resource "local_file" "ansible_inventory" {
     ssh_key    = var.ssh_private_key
   })
 }
-
-
-
